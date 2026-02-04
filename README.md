@@ -243,7 +243,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Kathy Bailey**
 
-- 🌐 Portfolio: [kaatbailey.github.io](https://kaatbailey.github.io)
 - 💼 GitHub: [@kaatbailey](https://github.com/kaatbailey)
 - 📧 Email: baileykaat@gmail.com
 
