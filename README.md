@@ -33,31 +33,6 @@ A **production-ready business directory** showcasing 67+ American family-owned b
 
 ---
 
-## 📸 Screenshots
-
-### Public Directory
-<div align="center">
-<img src="https://via.placeholder.com/800x450/1e3a8a/ffffff?text=Public+Directory+Homepage" alt="Public Directory" width="800"/>
-
-*Browse 67+ businesses with instant search and category filtering*
-</div>
-
-### Admin Dashboard
-<div align="center">
-<img src="https://via.placeholder.com/800x450/6366f1/ffffff?text=Admin+Dashboard" alt="Admin Dashboard" width="800"/>
-
-*Secure authentication with full CRUD operations*
-</div>
-
-### Mobile Experience
-<div align="center">
-<img src="https://via.placeholder.com/300x600/3b82f6/ffffff?text=Mobile+View" alt="Mobile View" width="300"/>
-
-*Beautifully optimized for mobile devices*
-</div>
-
----
-
 ## ✨ Features
 
 ### 🌐 Public Features
