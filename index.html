@@ -11,29 +11,29 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap');
-        
+
         body {
             font-family: 'Open Sans', sans-serif;
         }
-        
+
         h1, h2, h3 {
             font-family: 'Merriweather', serif;
         }
-        
+
         .business-card {
             transition: all 0.3s ease;
             background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
         }
-        
+
         .business-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
-        
+
         .icon-container {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        
+
         .search-container {
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
         }
@@ -54,166 +54,142 @@
     </style>
 </head>
 <body>
-    <div id="root"></div>
+<div id="root"></div>
 
-    <script type="text/babel">
-        const { useState, useEffect, useMemo } = React;
+<script type="text/babel">
+    const { useState, useEffect, useMemo } = React;
 
-        // ⚠️ IMPORTANT: Replace these with your actual Supabase credentials
-        // Get these from: Supabase Dashboard → Settings → API
-        const SUPABASE_URL = 'https://hsrjdbhovbwbfvyyridm.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzcmpkYmhvdmJ3YmZ2eXlyaWRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxNTIwMzAsImV4cCI6MjA4NTcyODAzMH0.StKmidTLySiLJjZWZrAl4qcL2290Cy40LI1LAmmLnUg';
+    // ⚠️ IMPORTANT: Replace these with your actual Supabase credentials
+    // Get these from: Supabase Dashboard → Settings → API
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
+    const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
 
-        // Initialize Supabase client
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    // Initialize Supabase client
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        function BusinessCard({ business }) {
-            return (
-                <div className="business-card rounded-xl shadow-lg p-6 border border-gray-200">
-                    <div className="flex items-start gap-4">
-                        <div className="icon-container flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-md">
-                            {business.icon}
+    function BusinessCard({ business }) {
+        return (
+            <div className="business-card rounded-xl shadow-lg p-6 border border-gray-200">
+                <div className="flex items-start gap-4">
+                    <div className="icon-container flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-md">
+                        {business.icon}
+                    </div>
+                    <div className="flex-1">
+                        <h3 className="text-xl font-bold text-gray-800 mb-2">{business.name}</h3>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                            {business.owners.map((owner, idx) => (
+                                <a
+                                    key={idx}
+                                    href={`https://x.com/${owner.substring(1)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 rounded-full transition-colors"
+                                >
+                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                    </svg>
+                                    {owner}
+                                </a>
+                            ))}
                         </div>
-                        <div className="flex-1">
-                            <h3 className="text-xl font-bold text-gray-800 mb-2">{business.name}</h3>
-                            <div className="flex flex-wrap gap-2 mb-3">
-                                {business.owners.map((owner, idx) => (
-                                    <a
-                                        key={idx}
-                                        href={`https://x.com/${owner.substring(1)}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 rounded-full transition-colors"
-                                    >
-                                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                                        </svg>
-                                        {owner}
-                                    </a>
-                                ))}
-                            </div>
-                            <p className="text-gray-600 text-sm leading-relaxed mb-3">{business.description}</p>
+                        <p className="text-gray-600 text-sm leading-relaxed mb-3">{business.description}</p>
+                        <div className="flex flex-wrap items-center gap-3 mb-3">
+                            {business.website && (
+                                <a
+                                    href={business.website.startsWith('http') ? business.website : `https://${business.website}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-700 text-sm font-medium transition-colors"
+                                >
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                                    </svg>
+                                    Visit Website
+                                </a>
+                            )}
                             <span className="inline-block bg-purple-100 text-purple-700 text-xs font-semibold px-3 py-1 rounded-full">
-                                {business.category}
-                            </span>
+                                    {business.category}
+                                </span>
                         </div>
                     </div>
                 </div>
-            );
-        }
+            </div>
+        );
+    }
 
-        function App() {
-            const [businesses, setBusinesses] = useState([]);
-            const [searchTerm, setSearchTerm] = useState('');
-            const [selectedCategory, setSelectedCategory] = useState('All');
-            const [loading, setLoading] = useState(true);
-            const [error, setError] = useState(null);
+    function App() {
+        const [businesses, setBusinesses] = useState([]);
+        const [searchTerm, setSearchTerm] = useState('');
+        const [selectedCategory, setSelectedCategory] = useState('All');
+        const [loading, setLoading] = useState(true);
+        const [error, setError] = useState(null);
 
-            // Load businesses from Supabase
-            useEffect(() => {
-                const loadBusinesses = async () => {
-                    try {
-                        setLoading(true);
-                        setError(null);
+        // Load businesses from Supabase
+        useEffect(() => {
+            const loadBusinesses = async () => {
+                try {
+                    setLoading(true);
+                    setError(null);
 
-                        // Check if credentials are configured
-                        if (SUPABASE_URL === 'YOUR_SUPABASE_URL_HERE' || SUPABASE_KEY === 'YOUR_SUPABASE_ANON_KEY_HERE') {
-                            setError('⚠️ Supabase not configured. Please add your credentials to the code.');
-                            setLoading(false);
-                            return;
-                        }
-
-                        const { data, error } = await supabase
-                            .from('businesses')
-                            .select('*')
-                            .order('name', { ascending: true });
-
-                        if (error) throw error;
-                        setBusinesses(data || []);
-                    } catch (err) {
-                        console.error('Error loading businesses:', err);
-                        setError(`Error loading data: ${err.message}`);
-                    } finally {
+                    // Check if credentials are configured
+                    if (SUPABASE_URL === 'YOUR_SUPABASE_URL_HERE' || SUPABASE_KEY === 'YOUR_SUPABASE_ANON_KEY_HERE') {
+                        setError('⚠️ Supabase not configured. Please add your credentials to the code.');
                         setLoading(false);
+                        return;
                     }
-                };
 
-                loadBusinesses();
+                    const { data, error } = await supabase
+                        .from('businesses')
+                        .select('*')
+                        .order('name', { ascending: true });
 
-                // Set up real-time subscription
-                const subscription = supabase
-                    .channel('businesses_changes')
-                    .on('postgres_changes', 
-                        { event: '*', schema: 'public', table: 'businesses' },
-                        (payload) => {
-                            console.log('Change received!', payload);
-                            // Reload businesses when changes occur
-                            loadBusinesses();
-                        }
-                    )
-                    .subscribe();
+                    if (error) throw error;
+                    setBusinesses(data || []);
+                } catch (err) {
+                    console.error('Error loading businesses:', err);
+                    setError(`Error loading data: ${err.message}`);
+                } finally {
+                    setLoading(false);
+                }
+            };
 
-                // Cleanup subscription on unmount
-                return () => {
-                    subscription.unsubscribe();
-                };
-            }, []);
+            loadBusinesses();
 
-            const categories = useMemo(() => {
-                const cats = ['All', ...new Set(businesses.map(b => b.category))];
-                return cats.sort();
-            }, [businesses]);
+            // Set up real-time subscription
+            const subscription = supabase
+                .channel('businesses_changes')
+                .on('postgres_changes',
+                    { event: '*', schema: 'public', table: 'businesses' },
+                    (payload) => {
+                        console.log('Change received!', payload);
+                        // Reload businesses when changes occur
+                        loadBusinesses();
+                    }
+                )
+                .subscribe();
 
-            const filteredBusinesses = useMemo(() => {
-                return businesses.filter(business => {
-                    const matchesSearch = business.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                        business.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                        business.owners.some(owner => owner.toLowerCase().includes(searchTerm.toLowerCase()));
-                    const matchesCategory = selectedCategory === 'All' || business.category === selectedCategory;
-                    return matchesSearch && matchesCategory;
-                });
-            }, [searchTerm, selectedCategory, businesses]);
+            // Cleanup subscription on unmount
+            return () => {
+                subscription.unsubscribe();
+            };
+        }, []);
 
-            if (loading) {
-                return (
-                    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-                        <div className="search-container py-12 px-4 mb-8 shadow-lg">
-                            <div className="max-w-6xl mx-auto">
-                                <h1 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
-                                    🇺🇸 American Small Businesses
-                                </h1>
-                                <p className="text-blue-100 text-center mb-8 text-lg">
-                                    Supporting family-owned businesses and American craftsmanship
-                                </p>
-                                <div className="flex justify-center">
-                                    <div className="loading-spinner"></div>
-                                </div>
-                                <p className="text-white text-center mt-4">Loading businesses...</p>
-                            </div>
-                        </div>
-                    </div>
-                );
-            }
+        const categories = useMemo(() => {
+            const cats = ['All', ...new Set(businesses.map(b => b.category))];
+            return cats.sort();
+        }, [businesses]);
 
-            if (error) {
-                return (
-                    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-                        <div className="search-container py-12 px-4 mb-8 shadow-lg">
-                            <div className="max-w-6xl mx-auto">
-                                <h1 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
-                                    🇺🇸 American Small Businesses
-                                </h1>
-                                <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg mt-8">
-                                    <p className="font-semibold mb-2">Error Loading Data</p>
-                                    <p>{error}</p>
-                                    <p className="text-sm mt-2">Please check the setup guide or contact the administrator.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                );
-            }
+        const filteredBusinesses = useMemo(() => {
+            return businesses.filter(business => {
+                const matchesSearch = business.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    business.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    business.owners.some(owner => owner.toLowerCase().includes(searchTerm.toLowerCase()));
+                const matchesCategory = selectedCategory === 'All' || business.category === selectedCategory;
+                return matchesSearch && matchesCategory;
+            });
+        }, [searchTerm, selectedCategory, businesses]);
 
+        if (loading) {
             return (
                 <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
                     <div className="search-container py-12 px-4 mb-8 shadow-lg">
@@ -224,64 +200,103 @@
                             <p className="text-blue-100 text-center mb-8 text-lg">
                                 Supporting family-owned businesses and American craftsmanship
                             </p>
-                            
-                            <div className="flex flex-col md:flex-row gap-4">
-                                <input
-                                    type="text"
-                                    placeholder="Search businesses..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="flex-1 px-6 py-3 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:outline-none focus:border-white focus:bg-white/20 transition-all"
-                                />
-                                <select
-                                    value={selectedCategory}
-                                    onChange={(e) => setSelectedCategory(e.target.value)}
-                                    className="px-6 py-3 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white focus:outline-none focus:border-white focus:bg-white/20 transition-all"
-                                >
-                                    {categories.map(cat => (
-                                        <option key={cat} value={cat} className="text-gray-900">
-                                            {cat}
-                                        </option>
-                                    ))}
-                                </select>
+                            <div className="flex justify-center">
+                                <div className="loading-spinner"></div>
                             </div>
-                            
-                            <div className="text-center mt-4 text-blue-100">
-                                Showing {filteredBusinesses.length} of {businesses.length} businesses
-                            </div>
+                            <p className="text-white text-center mt-4">Loading businesses...</p>
                         </div>
                     </div>
-
-                    <div className="max-w-6xl mx-auto px-4 pb-12">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {filteredBusinesses.map(business => (
-                                <BusinessCard key={business.id} business={business} />
-                            ))}
-                        </div>
-                        
-                        {filteredBusinesses.length === 0 && (
-                            <div className="text-center py-12">
-                                <p className="text-gray-500 text-xl">No businesses found matching your criteria.</p>
-                            </div>
-                        )}
-                    </div>
-
-                    <footer className="bg-gray-800 text-white py-8 mt-12">
-                        <div className="max-w-6xl mx-auto px-4 text-center">
-                            <p className="text-gray-300">
-                                Supporting American small businesses and family traditions
-                            </p>
-                            <p className="text-gray-400 text-sm mt-2">
-                                Made with ❤️ for American entrepreneurs • Powered by Supabase
-                            </p>
-                        </div>
-                    </footer>
                 </div>
             );
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+        if (error) {
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+                    <div className="search-container py-12 px-4 mb-8 shadow-lg">
+                        <div className="max-w-6xl mx-auto">
+                            <h1 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
+                                🇺🇸 American Small Businesses
+                            </h1>
+                            <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg mt-8">
+                                <p className="font-semibold mb-2">Error Loading Data</p>
+                                <p>{error}</p>
+                                <p className="text-sm mt-2">Please check the setup guide or contact the administrator.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+                <div className="search-container py-12 px-4 mb-8 shadow-lg">
+                    <div className="max-w-6xl mx-auto">
+                        <h1 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
+                            🇺🇸 American Small Businesses
+                        </h1>
+                        <p className="text-blue-100 text-center mb-8 text-lg">
+                            Supporting family-owned businesses and American craftsmanship
+                        </p>
+
+                        <div className="flex flex-col md:flex-row gap-4">
+                            <input
+                                type="text"
+                                placeholder="Search businesses..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="flex-1 px-6 py-3 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:outline-none focus:border-white focus:bg-white/20 transition-all"
+                            />
+                            <select
+                                value={selectedCategory}
+                                onChange={(e) => setSelectedCategory(e.target.value)}
+                                className="px-6 py-3 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white focus:outline-none focus:border-white focus:bg-white/20 transition-all"
+                            >
+                                {categories.map(cat => (
+                                    <option key={cat} value={cat} className="text-gray-900">
+                                        {cat}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="text-center mt-4 text-blue-100">
+                            Showing {filteredBusinesses.length} of {businesses.length} businesses
+                        </div>
+                    </div>
+                </div>
+
+                <div className="max-w-6xl mx-auto px-4 pb-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {filteredBusinesses.map(business => (
+                            <BusinessCard key={business.id} business={business} />
+                        ))}
+                    </div>
+
+                    {filteredBusinesses.length === 0 && (
+                        <div className="text-center py-12">
+                            <p className="text-gray-500 text-xl">No businesses found matching your criteria.</p>
+                        </div>
+                    )}
+                </div>
+
+                <footer className="bg-gray-800 text-white py-8 mt-12">
+                    <div className="max-w-6xl mx-auto px-4 text-center">
+                        <p className="text-gray-300">
+                            Supporting American small businesses and family traditions
+                        </p>
+                        <p className="text-gray-400 text-sm mt-2">
+                            Made with ❤️ for American entrepreneurs • Powered by Supabase
+                        </p>
+                    </div>
+                </footer>
+            </div>
+        );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+</script>
 </body>
 </html>
