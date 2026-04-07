@@ -29,7 +29,7 @@ A **production-ready business directory** showcasing 67+ American family-owned b
 - 📱 **Fully Responsive** - Optimized for desktop, tablet, and mobile devices
 - 🎨 **Modern UI/UX** - Gradient backgrounds, smooth animations, and intuitive design
 
-> 👉 **[Try the live demo →](https://kaatbailey.github.io/SupabaseDirectory/)**
+> 👉 **[Try the live demo →](https://kaatbailey.github.io/AmericanBusinesses/)**
 
 ---
 
@@ -282,7 +282,7 @@ Interested in more full-stack applications? Check out my other work:
 
 ## ⭐ Star this repo if you find it helpful!
 
-**[View Live Demo](https://kaatbailey.github.io/SupabaseDirectory/)** | **[Report Bug](https://github.com/kaatbailey/SupabaseDirectory/issues)** | **[Request Feature](https://github.com/kaatbailey/SupabaseDirectory/issues)**
+**[View Live Demo](https://kaatbailey.github.io/AmericanBusinesses/)** | **[Report Bug](https://github.com/kaatbailey/SupabaseDirectory/issues)** | **[Request Feature](https://github.com/kaatbailey/SupabaseDirectory/issues)**
 
 Made with ❤️ by [Kathy Bailey](https://github.com/kaatbailey)
 
