@@ -4,7 +4,7 @@
 
 **A modern, authenticated business directory platform built with React and Supabase**
 
-[🌐 Live Demo](https://kaatbailey.github.io/SupabaseDirectory/) • [📖 Documentation](#-features) • [🔐 Admin Panel](https://kaatbailey.github.io/SupabaseDirectory/admin-authenticated.html)
+[🌐 Live Demo](https://kaatbailey.github.io/AmericanBusinesses/) • [📖 Documentation](#-features) • [🔐 Admin Panel](https://kaatbailey.github.io/AmericanBusinesses/admin-authenticated.html)
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=flat-square&logo=supabase&logoColor=white)
