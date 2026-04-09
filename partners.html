@@ -62,8 +62,9 @@
         const { useState, useEffect, useMemo } = React;
 
         // ⚠️ IMPORTANT: Replace these with your actual Supabase credentials
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
-        const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+        const SUPABASE_URL = 'https://hsrjdbhovbwbfvyyridm.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzcmpkYmhvdmJ3YmZ2eXlyaWRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxNTIwMzAsImV4cCI6MjA4NTcyODAzMH0.StKmidTLySiLJjZWZrAl4qcL2290Cy40LI1LAmmLnUg';
+
 
         // Initialize Supabase client
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
