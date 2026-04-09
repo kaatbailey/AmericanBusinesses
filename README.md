@@ -112,7 +112,7 @@ A **production-ready business directory** showcasing 67+ American family-owned b
 ### For Public Viewing
 Simply visit the live site:
 ```
-https://kaatbailey.github.io/SupabaseDirectory/
+https://kaatbailey.github.io/AmericanBusinesses/
 ```
 
 ### For Admin Access
