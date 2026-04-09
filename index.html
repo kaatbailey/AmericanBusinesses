@@ -61,9 +61,8 @@
 
     // ⚠️ IMPORTANT: Replace these with your actual Supabase credentials
     // Get these from: Supabase Dashboard → Settings → API
-    const SUPABASE_URL = 'https://hsrjdbhovbwbfvyyridm.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzcmpkYmhvdmJ3YmZ2eXlyaWRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxNTIwMzAsImV4cCI6MjA4NTcyODAzMH0.StKmidTLySiLJjZWZrAl4qcL2290Cy40LI1LAmmLnUg';
-
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
+    const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
 
     // Initialize Supabase client
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -234,6 +233,19 @@
             <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
                 <div className="search-container py-12 px-4 mb-8 shadow-lg">
                     <div className="max-w-6xl mx-auto">
+                        {/* Partner Directories Link */}
+                        <div className="flex justify-end mb-4">
+                            <a
+                                href="partners.html"
+                                className="inline-flex items-center gap-2 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-5 py-2.5 rounded-full transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                </svg>
+                                Partner Directories
+                            </a>
+                        </div>
+
                         <h1 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
                             🇺🇸 American Small Businesses
                         </h1>
